@@ -1,0 +1,19 @@
+# Robo Treasure Hunt - Game Configuration
+
+player:
+  normal_linear_speed: 0.50
+  boost_linear_speed: 0.90
+  normal_angular_speed: 1.40
+  boost_angular_speed: 2.00
+  move_time: 0.30
+  turn_time: 0.20
+
+rules:
+  score_per_treasure: 100
+  total_treasures: 3
+
+spawn:
+  x: -4.5
+  y: -3.5
+  z: 0.08
+  yaw: 0.0

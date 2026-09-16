@@ -1,0 +1,77 @@
+<launch>
+    <!-- Environment variables -->
+    <env name="TURTLEBOT3_MODEL" value="burger"/>
+
+    <!-- Remap camera image topic if needed -->
+    <remap from="/camera/image" to="/camera/image_raw"/>
+
+    <!-- 1. Gazebo Custom Museum Simulation -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find robo_treasure_hunt)/worlds/museum.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- 2. TurtleBot3 Burger with Camera & LiDAR -->
+    <param name="robot_description"
+           command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_burger_for_autorace.urdf.xacro"/>
+
+    <!-- Spawn Robot upright at dedicated clear spawn point -->
+    <node pkg="gazebo_ros"
+          type="spawn_model"
+          name="spawn_urdf"
+          args="-urdf -model turtlebot3_burger -x -4.5 -y -3.5 -z 0.08 -Y 0.0 -param robot_description"
+          output="screen"/>
+
+    <!-- Robot State Publisher for TF -->
+    <node pkg="robot_state_publisher"
+          type="robot_state_publisher"
+          name="robot_state_publisher"
+          output="screen">
+        <param name="publish_frequency" type="double" value="30.0"/>
+    </node>
+
+    <!-- 3. Central Game Manager Node -->
+    <node pkg="robo_treasure_hunt"
+          type="game_manager.py"
+          name="game_manager"
+          output="screen">
+        <param name="treasures_file" value="$(find robo_treasure_hunt)/config/treasures.yaml"/>
+        <param name="game_file" value="$(find robo_treasure_hunt)/config/game.yaml"/>
+        <param name="robot_model_name" value="turtlebot3_burger"/>
+    </node>
+
+    <!-- 4. Treasure Detector Node -->
+    <node pkg="robo_treasure_hunt"
+          type="treasure_detector.py"
+          name="treasure_detector"
+          output="screen">
+        <param name="treasures_file" value="$(find robo_treasure_hunt)/config/treasures.yaml"/>
+    </node>
+
+    <!-- 5. Security Detector Node -->
+    <node pkg="robo_treasure_hunt"
+          type="security_detector.py"
+          name="security_detector"
+          output="screen">
+        <param name="security_file" value="$(find robo_treasure_hunt)/config/security.yaml"/>
+    </node>
+
+    <!-- 6. Graphical Real-Time Game HUD -->
+    <node pkg="robo_treasure_hunt"
+          type="game_hud.py"
+          name="game_hud"
+          output="screen"/>
+
+    <!-- 7. Interactive Keyboard Player Controller -->
+    <node pkg="robo_treasure_hunt"
+          type="player_controller.py"
+          name="player_controller"
+          output="screen"
+          launch-prefix="xterm -e">
+        <param name="game_file" value="$(find robo_treasure_hunt)/config/game.yaml"/>
+    </node>
+</launch>

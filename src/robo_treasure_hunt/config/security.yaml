@@ -1,0 +1,24 @@
+security_zones:
+  - id: 1
+    name: "North Gallery Security"
+    x: -1.5
+    y: 2.0
+    detection_radius: 1.0
+    suspicion_time: 3.0
+    alarm_time: 6.0
+
+  - id: 2
+    name: "Central Gallery Security"
+    x: 1.0
+    y: 0.0
+    detection_radius: 0.8
+    suspicion_time: 2.0
+    alarm_time: 5.0
+
+  - id: 3
+    name: "Lower Gallery Security"
+    x: 0.0
+    y: -3.5
+    detection_radius: 1.0
+    suspicion_time: 4.0
+    alarm_time: 8.0

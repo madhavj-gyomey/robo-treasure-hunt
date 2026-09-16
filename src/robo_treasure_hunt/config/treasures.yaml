@@ -1,0 +1,23 @@
+treasures:
+  - id: 1
+    name: "Golden Idol"
+    model: "golden_idol"
+    x: 4.5
+    y: 3.8
+    z: 0.16
+
+  - id: 2
+    name: "Ancient Gem"
+    model: "ancient_gem"
+    x: -4.5
+    y: 3.5
+    z: 0.16
+
+  - id: 3
+    name: "Royal Crown"
+    model: "royal_crown"
+    x: 4.5
+    y: -3.5
+    z: 0.15
+
+detection_distance: 0.65
