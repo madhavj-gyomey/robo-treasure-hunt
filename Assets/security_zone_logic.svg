@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="360" style="background:#090909; font-family:'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <marker id="arrow-sec" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#888888"/>
+    </marker>
+    <marker id="arrow-alert" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FFFFFF"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="360" fill="#090909"/>
+  <rect x="15" y="15" width="770" height="330" fill="none" stroke="#222222" stroke-width="1"/>
+
+  <text x="35" y="45" fill="#FFFFFF" font-size="13" font-weight="700" letter-spacing="1">SECURITY ZONE DETECTOR — TIMED THRESHOLD STATE MACHINE</text>
+  <text x="765" y="45" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace" text-anchor="end">RADIAL DISTANCE + DWELL TIMER</text>
+  <line x1="35" y1="58" x2="765" y2="58" stroke="#1F1F1F" stroke-width="1"/>
+
+  <!-- Phase 1: Outside -->
+  <g transform="translate(40, 95)">
+    <rect x="0" y="0" width="200" height="150" fill="#121212" stroke="#333333" stroke-width="1"/>
+    <text x="15" y="28" fill="#FFFFFF" font-size="12" font-weight="700">STATE 1: CLEAR</text>
+    <line x1="15" y1="38" x2="185" y2="38" stroke="#222222" stroke-width="1"/>
+    <text x="15" y="60" fill="#888888" font-size="10" font-family="'JetBrains Mono', monospace">d &gt; detection_radius</text>
+    <text x="15" y="80" fill="#555555" font-size="9" font-family="'JetBrains Mono', monospace">Robot outside zone</text>
+    <text x="15" y="105" fill="#AAAAAA" font-size="9" font-family="'JetBrains Mono', monospace">Timer: INACTIVE</text>
+    <text x="15" y="125" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">HUD: "CLEAR"</text>
+    <text x="15" y="140" fill="#666666" font-size="8">Infiltration intact</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 240 170 L 280 170" fill="none" stroke="#888888" stroke-width="1.5" marker-end="url(#arrow-sec)"/>
+  <text x="260" y="160" fill="#666666" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle">Entry</text>
+
+  <!-- Phase 2: Suspicious -->
+  <g transform="translate(285, 95)">
+    <rect x="0" y="0" width="230" height="150" fill="#161616" stroke="#555555" stroke-width="1"/>
+    <text x="15" y="28" fill="#FFFFFF" font-size="12" font-weight="700">STATE 2: SUSPICIOUS</text>
+    <line x1="15" y1="38" x2="215" y2="38" stroke="#2A2A2A" stroke-width="1"/>
+    <text x="15" y="60" fill="#CCCCCC" font-size="10" font-family="'JetBrains Mono', monospace">t_dwell &gt;= t_suspicion</text>
+    <text x="15" y="78" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">• North: 3.0s | Central: 2.0s</text>
+    <text x="15" y="94" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">• Lower: 4.0s dwell limit</text>
+    <text x="15" y="115" fill="#E0E0E0" font-size="9" font-family="'JetBrains Mono', monospace">HUD: WARNING BANNER</text>
+    <text x="15" y="130" fill="#888888" font-size="8">Live countdown to alarm</text>
+    <text x="15" y="142" fill="#555555" font-size="8">Exit zone resets timer</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 515 170 L 555 170" fill="none" stroke="#FFFFFF" stroke-width="1.5" marker-end="url(#arrow-alert)"/>
+  <text x="535" y="160" fill="#CCCCCC" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle">Timeout</text>
+
+  <!-- Phase 3: Alarm -->
+  <g transform="translate(560, 95)">
+    <rect x="0" y="0" width="200" height="150" fill="#1A1A1A" stroke="#888888" stroke-width="1.5"/>
+    <text x="15" y="28" fill="#FFFFFF" font-size="12" font-weight="700">STATE 3: ALARM</text>
+    <line x1="15" y1="38" x2="185" y2="38" stroke="#333333" stroke-width="1"/>
+    <text x="15" y="60" fill="#FFFFFF" font-size="10" font-family="'JetBrains Mono', monospace">t_dwell &gt;= t_alarm</text>
+    <text x="15" y="78" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">• North: 6.0s | Central: 5.0s</text>
+    <text x="15" y="94" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">• Lower: 8.0s alarm trigger</text>
+    <text x="15" y="115" fill="#FFFFFF" font-size="9" font-weight="700" font-family="'JetBrains Mono', monospace">MISSION FAILED</text>
+    <text x="15" y="130" fill="#888888" font-size="8">Movement locked</text>
+    <text x="15" y="142" fill="#888888" font-size="8">Press R to reset</text>
+  </g>
+
+  <!-- Bottom Annotation -->
+  <line x1="40" y1="270" x2="760" y2="270" stroke="#1F1F1F" stroke-width="1"/>
+  <g transform="translate(40, 295)" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888888">
+    <text x="0" y="0">ALGORITHM: Euclidean distance computed at 10 Hz from /odom against config/security.yaml coordinates.</text>
+    <text x="0" y="18" fill="#666666">If robot egresses the detection radius before t_alarm, timers clear immediately and state returns to CLEAR.</text>
+  </g>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="580" style="background:#090909; font-family:'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#777777"/>
+    </marker>
+    <marker id="arrow-white" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#CCCCCC"/>
+    </marker>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1000" height="580" fill="#090909"/>
+  <rect x="15" y="15" width="970" height="550" fill="none" stroke="#222222" stroke-width="1"/>
+
+  <!-- Diagram Title Header -->
+  <text x="35" y="45" fill="#FFFFFF" font-size="14" font-weight="700" letter-spacing="1.5">ROBO TREASURE HUNT — COMPUTATIONAL GRAPH &amp; ROS ARCHITECTURE</text>
+  <text x="965" y="45" fill="#666666" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end">ROS 1 NOETIC // NODE TOPOLOGY</text>
+  <line x1="35" y1="58" x2="965" y2="58" stroke="#1F1F1F" stroke-width="1"/>
+
+  <!-- ================= SECTION 1: SIMULATION ENGINE (LEFT) ================= -->
+  <g transform="translate(35, 80)">
+    <rect x="0" y="0" width="230" height="460" fill="#0D0D0D" stroke="#262626" stroke-width="1"/>
+    <text x="15" y="24" fill="#888888" font-size="10" font-family="'JetBrains Mono', monospace" letter-spacing="1">SIMULATION LAYER</text>
+    <line x1="15" y1="32" x2="215" y2="32" stroke="#1F1F1F" stroke-width="1"/>
+
+    <!-- Gazebo Core Node -->
+    <rect x="15" y="45" width="200" height="110" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="70" fill="#FFFFFF" font-size="13" font-weight="700">/gazebo</text>
+    <text x="25" y="88" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">Gazebo 11 Physics</text>
+    <text x="25" y="104" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">• museum.world</text>
+    <text x="25" y="118" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">• Diff-drive physics</text>
+    <text x="25" y="132" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">• Ray LiDAR &amp; Cam plugin</text>
+
+    <!-- TurtleBot3 Model Node -->
+    <rect x="15" y="175" width="200" height="95" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="200" fill="#FFFFFF" font-size="13" font-weight="700">/robot_state_publisher</text>
+    <text x="25" y="218" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">URDF / TF Broadcaster</text>
+    <text x="25" y="234" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">• burger_autorace URDF</text>
+    <text x="25" y="248" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">• 30.0 Hz TF updates</text>
+
+    <!-- Gazebo Services Box -->
+    <rect x="15" y="290" width="200" height="150" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="315" fill="#FFFFFF" font-size="11" font-weight="700">GAZEBO SERVICES</text>
+    <text x="25" y="335" fill="#AAAAAA" font-size="9" font-family="'JetBrains Mono', monospace">/gazebo/delete_model</text>
+    <text x="25" y="350" fill="#555555" font-size="8">Removes captured artifact</text>
+    <text x="25" y="375" fill="#AAAAAA" font-size="9" font-family="'JetBrains Mono', monospace">/gazebo/spawn_sdf_model</text>
+    <text x="25" y="390" fill="#555555" font-size="8">Re-spawns artifacts on reset</text>
+    <text x="25" y="415" fill="#AAAAAA" font-size="9" font-family="'JetBrains Mono', monospace">/gazebo/set_model_state</text>
+    <text x="25" y="430" fill="#555555" font-size="8">Teleports robot to spawn</text>
+  </g>
+
+  <!-- ================= SECTION 2: COMPUTATION & DETECTORS (CENTER) ================= -->
+  <g transform="translate(300, 80)">
+    <rect x="0" y="0" width="370" height="460" fill="#0D0D0D" stroke="#262626" stroke-width="1"/>
+    <text x="15" y="24" fill="#888888" font-size="10" font-family="'JetBrains Mono', monospace" letter-spacing="1">PROCESSING &amp; DETECTION LAYER</text>
+    <line x1="15" y1="32" x2="355" y2="32" stroke="#1F1F1F" stroke-width="1"/>
+
+    <!-- Treasure Detector Node -->
+    <rect x="15" y="45" width="340" height="100" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="70" fill="#FFFFFF" font-size="13" font-weight="700">/treasure_detector</text>
+    <text x="25" y="88" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">Artifact Distance &amp; Bearing Tracker</text>
+    <text x="25" y="104" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Sub: /odom (Odometry)</text>
+    <text x="25" y="118" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/treasures (JSON: dist, bearing, arrow)</text>
+    <text x="25" y="132" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/treasure_event &amp; /visualization_marker</text>
+
+    <!-- Security Detector Node -->
+    <rect x="15" y="160" width="340" height="95" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="185" fill="#FFFFFF" font-size="13" font-weight="700">/security_detector</text>
+    <text x="25" y="203" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">Timed Detection Zone Monitor</text>
+    <text x="25" y="219" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Sub: /odom | Config: security.yaml</text>
+    <text x="25" y="233" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Zones: North (3s/6s), Central (2s/5s), Lower (4s/8s)</text>
+    <text x="25" y="247" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/security (JSON: zone, timers, countdown)</text>
+
+    <!-- Game Manager Node (Master Authority) -->
+    <rect x="15" y="270" width="340" height="170" fill="#181818" stroke="#444444" stroke-width="1.5"/>
+    <text x="25" y="295" fill="#FFFFFF" font-size="14" font-weight="700">/game_manager</text>
+    <text x="25" y="313" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">Central Mission State Authority</text>
+    <text x="25" y="331" fill="#CCCCCC" font-size="9" font-family="'JetBrains Mono', monospace">Sub: /game/treasure_event, /game/security, /game/reset</text>
+    <text x="25" y="347" fill="#CCCCCC" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/state (JSON: state, score, elapsed, targets)</text>
+    <text x="25" y="363" fill="#CCCCCC" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/score (Int32)</text>
+    <line x1="25" y1="375" x2="340" y2="375" stroke="#2A2A2A" stroke-width="1"/>
+    <text x="25" y="392" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">STATE MACHINE STATES:</text>
+    <text x="25" y="408" fill="#AAAAAA" font-size="8" font-family="'JetBrains Mono', monospace">LOADING -> PLAYING <-> SUSPICIOUS -> ALARM</text>
+    <text x="25" y="422" fill="#AAAAAA" font-size="8" font-family="'JetBrains Mono', monospace">ALARM -> GAME_FAILED | 3/3 ARTIFACTS -> MISSION_COMPLETE</text>
+  </g>
+
+  <!-- ================= SECTION 3: OPERATOR & CONTROL LAYER (RIGHT) ================= -->
+  <g transform="translate(705, 80)">
+    <rect x="0" y="0" width="260" height="460" fill="#0D0D0D" stroke="#262626" stroke-width="1"/>
+    <text x="15" y="24" fill="#888888" font-size="10" font-family="'JetBrains Mono', monospace" letter-spacing="1">USER &amp; CONTROL LAYER</text>
+    <line x1="15" y1="32" x2="245" y2="32" stroke="#1F1F1F" stroke-width="1"/>
+
+    <!-- Player Controller Node -->
+    <rect x="15" y="45" width="230" height="145" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="70" fill="#FFFFFF" font-size="13" font-weight="700">/player_controller</text>
+    <text x="25" y="88" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">Discrete Keyboard Stepper</text>
+    <text x="25" y="106" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">W/S: Step linear (0.3s)</text>
+    <text x="25" y="120" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">A/D: Step angular (0.2s)</text>
+    <text x="25" y="134" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">SHIFT: 2.0x Boost (0.9m/s)</text>
+    <text x="25" y="148" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /cmd_vel (Twist)</text>
+    <text x="25" y="162" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Pub: /game/speed_mode ("1.0x")</text>
+    <text x="25" y="176" fill="#666666" font-size="9" font-family="'JetBrains Mono', monospace">Key 'R' -> Pub: /game/reset</text>
+
+    <!-- Game HUD (PyQt5) Node -->
+    <rect x="15" y="210" width="230" height="230" fill="#141414" stroke="#333333" stroke-width="1"/>
+    <text x="25" y="235" fill="#FFFFFF" font-size="13" font-weight="700">/game_hud</text>
+    <text x="25" y="253" fill="#888888" font-size="9" font-family="'JetBrains Mono', monospace">PyQt5 Operator Station</text>
+    <text x="25" y="275" fill="#CCCCCC" font-size="9" font-family="'JetBrains Mono', monospace">Subscribers:</text>
+    <text x="25" y="291" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /camera/image_raw (FPV)</text>
+    <text x="25" y="305" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/state (Mission status)</text>
+    <text x="25" y="319" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/treasures (Radar)</text>
+    <text x="25" y="333" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/security (Alerts)</text>
+    <text x="25" y="347" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/score (Point total)</text>
+    <text x="25" y="361" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/speed_mode (1.0x/2.0x)</text>
+    <line x1="25" y1="375" x2="235" y2="375" stroke="#222222" stroke-width="1"/>
+    <text x="25" y="393" fill="#CCCCCC" font-size="9" font-family="'JetBrains Mono', monospace">Publishers:</text>
+    <text x="25" y="409" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /game/reset (Empty)</text>
+    <text x="25" y="423" fill="#777777" font-size="8" font-family="'JetBrains Mono', monospace">• /cmd_vel (HUD keystrokes)</text>
+  </g>
+
+  <!-- Connectors: Inter-layer Routing Lines -->
+  <!-- Odometry from Gazebo to Detectors -->
+  <path d="M 250 170 L 285 170 L 285 155 L 315 155" fill="none" stroke="#666666" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <path d="M 285 170 L 285 270 L 315 270" fill="none" stroke="#666666" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Cmd_vel from player controller to gazebo -->
+  <path d="M 720 175 L 685 175 L 685 195 L 250 195" fill="none" stroke="#CCCCCC" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arrow-white)"/>
+
+  <!-- Detectors to Game Manager -->
+  <path d="M 485 225 L 485 350" fill="none" stroke="#777777" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <path d="M 485 335 L 485 350" fill="none" stroke="#777777" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+  <!-- Game Manager to Gazebo services -->
+  <path d="M 315 410 L 250 410" fill="none" stroke="#AAAAAA" stroke-width="1.2" marker-end="url(#arrow-white)"/>
+
+  <!-- Camera feed from Gazebo to HUD -->
+  <path d="M 250 145 L 275 145 L 275 60 L 690 60 L 690 380 L 720 380" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arrow)"/>
+</svg>
